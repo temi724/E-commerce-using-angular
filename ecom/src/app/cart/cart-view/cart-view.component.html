@@ -1,1 +1,16 @@
-<p>cart-view works!</p>
+<div class="container">
+  <mat-card>
+    <mat-list *ngFor="let cartI of cartItems">
+      <mat-list-item>{{ cartI.name }}</mat-list-item>
+      <!-- <mat-list-item>{{}}</mat-list-item>
+      <mat-list-item>Paprika</mat-list-item> -->
+    </mat-list>
+    <mat-list>
+      <mat-list-item>Total Price</mat-list-item>
+      <mat-list-item>{{ total | currency : "NGN" }}</mat-list-item>
+      <mat-list-item>
+        <button (click)="clearCart()">Clear</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

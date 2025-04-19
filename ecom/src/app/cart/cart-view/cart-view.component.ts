@@ -16,15 +16,17 @@ export class CartViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.cs.getCartItems().subscribe((data) => {
-      console.log(data);
+      this.cartItems = data;
+      this.total = this.getTotal();
     });
   }
 
-  getTotal() {
+  getTotal(): number {
     this.total = 0;
     this.cartItems.forEach((item) => {
       this.total += item.price;
     });
+    return this.total;
   }
 
   removeItem(productId: number) {
@@ -32,5 +34,8 @@ export class CartViewComponent implements OnInit {
       this.cartItems = this.cartItems.filter((item) => item.id !== productId);
       this.getTotal();
     });
+  }
+  clearCart(): void {
+    this.cs.clearCart().subscribe();
   }
 }

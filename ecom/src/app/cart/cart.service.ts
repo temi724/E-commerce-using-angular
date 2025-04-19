@@ -13,6 +13,7 @@ export class CartService {
   constructor(private http: HttpClient) {}
 
   addToCart(product: Product): Observable<Product> {
+    // console.log(product);
     return this.http.post<Product>(this.apiUrl, product);
   }
 
