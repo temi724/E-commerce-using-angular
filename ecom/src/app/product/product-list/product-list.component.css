@@ -1,0 +1,9 @@
+.animal-card{
+    max-width: 200px;
+    
+}
+.product-card{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
