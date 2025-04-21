@@ -12,6 +12,7 @@ import { CartService } from '../../cart/cart.service';
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
+  sortOrder: string = '';
   constructor(private ps: ProductService, private cs: CartService) {}
 
   ngOnInit(): void {
@@ -29,6 +30,7 @@ export class ProductListComponent implements OnInit {
   }
 
   applyFilter(event: Event): void {
+    console.log(event);
     const searchTerm = (event.target as HTMLInputElement).value;
     searchTerm.toLowerCase();
     this.filteredProducts = this.products.filter((product) =>
@@ -36,6 +38,16 @@ export class ProductListComponent implements OnInit {
     );
     if (searchTerm === '') {
       this.filteredProducts = this.products;
+    }
+    this.sortProducts(this.sortOrder);
+  }
+
+  sortProducts(order: string) {
+    this.sortOrder = order;
+    if (order === 'priceLowHigh') {
+      this.filteredProducts.sort((a, b) => a.price - b.price);
+    } else if (order === 'priceHighLow') {
+      this.filteredProducts.sort((a, b) => b.price - a.price);
     }
   }
 }

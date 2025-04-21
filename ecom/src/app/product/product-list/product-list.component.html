@@ -1,21 +1,30 @@
 <div class="container">
-  <mat-form-field>
-    <mat-label>Input</mat-label>
-    <input matInput />
-  </mat-form-field>
+  <div style="display: flex; gap: 20px">
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="search" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select
+        (selectionChange)="sortProducts($event.value)"
+        placeholder="Sort"
+      >
+        <mat-option value="priceLowHigh">Price:Low To High</mat-option>
+        <mat-option value="priceHighLow">Price High To Low</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <!-- <mat-form-field>
     <mat-label>Select</mat-label>
-    <mat-select>
-      <mat-option value="one">First option</mat-option>
-      <mat-option value="two">Second option</mat-option>
-    </mat-select>
+ 
   </mat-form-field> -->
   <!-- <mat-form-field>
     <mat-label>Textarea</mat-label>
     <textarea matInput></textarea></mat-form-field -->
   <br />
   <div class="product-card">
-    <div *ngFor="let product of products">
+    <div *ngFor="let product of filteredProducts">
       <mat-card
         class="animal-card"
         appearance="outlined"
