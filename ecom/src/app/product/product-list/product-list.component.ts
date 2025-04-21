@@ -11,18 +11,31 @@ import { CartService } from '../../cart/cart.service';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
+  filteredProducts: Product[] = [];
   constructor(private ps: ProductService, private cs: CartService) {}
 
   ngOnInit(): void {
     //getting products list..
     this.ps.getProducts().subscribe((data) => {
       this.products = data;
-      console.log(this.products);
+      this.filteredProducts = data;
     });
   }
 
   addToCart(product: Product): void {
-    console.log(product);
-    this.cs.addToCart(product).subscribe();
+    this.cs.addToCart(product).subscribe({
+      // next: () => {},
+    });
+  }
+
+  applyFilter(event: Event): void {
+    const searchTerm = (event.target as HTMLInputElement).value;
+    searchTerm.toLowerCase();
+    this.filteredProducts = this.products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm)
+    );
+    if (searchTerm === '') {
+      this.filteredProducts = this.products;
+    }
   }
 }
